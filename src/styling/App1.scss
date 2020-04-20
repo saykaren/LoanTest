@@ -1,0 +1,115 @@
+@import './variables.scss';
+
+
+html{
+  background-color: $primary-color;
+}
+.App {
+  text-align: center;
+  color: $secondary-color;
+}
+
+button{
+  background-color: white;
+  color: $primary-color;
+  box-shadow: 3px 2px 4px $secondary-color;
+  border-radius: 5px;
+  margin: 5px;
+  border: 2px solid $secondary-color;
+  padding: 7px;
+}
+.bar {
+
+}
+
+#table {
+  border: 1px solid black;
+  background-color: white;
+
+  thead, tbody{
+    padding: 15px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: $primary-color;
+  }
+}
+
+#flexTable {
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tableCell {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid black;
+  background-color: $primary-color;
+  margin: 4px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.inputForm {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  flex: 1;
+}
+
+#inputSection{
+  display: flex;
+  padding: 1em;
+
+}
+
+//class
+.inputSection{
+  padding: 1em;
+  background-color: $primary-color;
+  margin: 1em;
+  flex: 1;
+}
+
+.dataSection{
+  padding: 1em;
+  background-color: $primary-color;
+  margin: 1em;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.dataForm {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  flex: 1;
+  margin: 1em;
+}
+
+//.App-header {
+//  background-color: #282c34;
+//  min-height: 100vh;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//  font-size: calc(10px + 2vmin);
+//  color: white;
+//}
+
+#footer{
+  width: 100%;
+  height: auto;
+  word-wrap: break-word;
+  color: $secondary-color;
+  text-align: center;
+  font-size: 1.5rem;
+  bottom: 0;
+}
+
+.footerDetails{
+  height: 3.5rem;
+}
