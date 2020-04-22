@@ -163,9 +163,10 @@ const App = () => {
     setBankPayment(e);
   };
 
+
   useEffect(()=>{
     if(newEndingPrincipalArray.length>=1 && newEndingPrincipalArray[newEndingPrincipalArray.length-1]>0){
-      setTimeout(generateCalculation, 1000);
+      setTimeout(generateCalculation, 100);
     }
   }, [newEndingPrincipalArray]);
 
