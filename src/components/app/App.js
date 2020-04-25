@@ -101,7 +101,9 @@ const App = () => {
         break;
     }
 
+  };
 
+  const extraCalculation = ()=>{
     ///extra payment calculations
     let currentExtraPrincipal;
     if (extraNewEndingPrincipalArray.length > 0) {
@@ -110,66 +112,45 @@ const App = () => {
       );
     }
 
-
-    const processExtraPayment = () => {
+    const processEachExtraPayment =(num)=>{
       let paymentExtraInterestPaid = numberConverter(
           currentExtraPrincipal * ((interestRate * 0.01) / 12),
       );
-      let principalExtraPaid = numberConverter(extraPayment + monthlyPayment - paymentExtraInterestPaid );
+      let principalExtraPaid;
+      ///Last payment 0
+      if(num == 0){
+        principalExtraPaid = numberConverter(currentExtraPrincipal);
+      }else{
+        principalExtraPaid = numberConverter(extraPayment + monthlyPayment - paymentExtraInterestPaid );
+      }
       let extraBalance = numberConverter(currentExtraPrincipal - principalExtraPaid);
       setExtraPrincipalPaidArray([...extraPrincipalPaidArray, principalExtraPaid]);
       setExtraInterestPaidArray([...extraInterestPaidArray, paymentExtraInterestPaid]);
       setExtraNewEndingPrincipalArray([...extraNewEndingPrincipalArray, extraBalance]);
-    };
+    }
 
+    switch (true) {
+      case (extraNewEndingPrincipalArray.length < 1):
+        setExtraNewEndingPrincipalArray([principal]);
+        break;
+      case (currentExtraPrincipal > (monthlyPayment + extraPayment) &&
+          extraNewEndingPrincipalArray.length >= 1):
+        processEachExtraPayment(1);
+        break;
+      case (currentExtraPrincipal < (monthlyPayment + extraPayment) && extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] > 0) :
+        processEachExtraPayment(0);
+        break;
+      case (extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] <= 0):
+        break;
+      default:
+        break;
+    }
 
-
-      const processExtraLastPayment = () => {
-        // console.log(`last payment ${currentPrincipal}`);
-        console.log('in Process Last Payment');
-        let paymentExtraInterestPaid = numberConverter(
-            currentExtraPrincipal * ((interestRate * 0.01) / 12),
-        );
-        let principalExtraPaid = numberConverter(currentExtraPrincipal);
-        let extraBalance = numberConverter(currentExtraPrincipal - principalExtraPaid);
-        setExtraPrincipalPaidArray([...extraPrincipalPaidArray, principalExtraPaid]);
-        setExtraInterestPaidArray([...extraInterestPaidArray, paymentExtraInterestPaid]);
-        setExtraNewEndingPrincipalArray([...extraNewEndingPrincipalArray, extraBalance]);
-
-        // let monthDateIndex =
-        //     monthDate.length - Math.floor(monthDate.length / 12) * 12;
-        // setMonthDate([...monthDate, monthArray[monthDateIndex]]);
-      };
-
-      switch (true) {
-        case (extraNewEndingPrincipalArray.length < 1):
-          setExtraNewEndingPrincipalArray([principal]);
-          break;
-        case (currentExtraPrincipal > (monthlyPayment + extraPayment) &&
-            extraNewEndingPrincipalArray.length >= 1):
-          processExtraPayment();
-          break;
-        case (currentExtraPrincipal < (monthlyPayment + extraPayment) && extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] > 0) :
-          processExtraLastPayment();
-          break;
-        case (extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] <= 0):
-          break;
-        default:
-          break;
-      }
-
-  };
+  }
   const handleReset = (e, setEvent)=>{
     let result = parseFloat(e);
     setEvent(result);
   }
-
-  const handleResetExtraMonthlyPayment = (e)=>{
-    let result = parseFloat(e);
-    setExtraPayment(result);
-
-  }
-
 
   useEffect(()=>{
     if(newEndingPrincipalArray.length>=1 && newEndingPrincipalArray[newEndingPrincipalArray.length-1]>0){
@@ -177,6 +158,18 @@ const App = () => {
     }
   }, [newEndingPrincipalArray]);
 
+  useEffect(()=>{
+    if(extraNewEndingPrincipalArray.length>=1 && extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length-1]>0){
+      setTimeout(extraCalculation, 100);
+    }
+  }, [extraNewEndingPrincipalArray]);
+
+  const calculate =()=>{
+    generateCalculation()
+    if(extraPayment>0){
+      extraCalculation();
+    }
+  }
 
   return (
       <section className="App">
@@ -241,11 +234,11 @@ const App = () => {
         {(newEndingPrincipalArray[newEndingPrincipalArray.length - 1] > 0 ||
             newEndingPrincipalArray[newEndingPrincipalArray.length - 1] ===
             undefined) && (
-            <button onClick={() => generateCalculation()}>Calculate</button>
+            <button onClick={() => calculate()}>Calculate</button>
         )}
 
         <button onClick={() => window.location.reload()}>Reset Numbers</button>
-        <RevealData interestPaidArray={interestPaidArray} mortgage={principal} />
+        <RevealData interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray} />
         {/* ****Below is for extra********* */}
         { extraNewEndingPrincipalArray.length>1 &&
         <div id="flexTable">
