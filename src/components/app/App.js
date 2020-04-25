@@ -58,11 +58,12 @@ const App = () => {
   const generateCalculation = () => {
     let currentPrincipal;
     if (newEndingPrincipalArray.length > 0) {
-
       currentPrincipal = numberConverter(
           newEndingPrincipalArray[newEndingPrincipalArray.length - 1],
       );
     }
+
+
 
     const processPayment = () => {
       let paymentInterestPaid = numberConverter(
@@ -70,7 +71,7 @@ const App = () => {
       );
       let principalPaid = numberConverter(monthlyPayment - paymentInterestPaid);
       // let balance = numberConverter(currentPrincipal - principalPaid);
-      let balance = currentPrincipal - principalPaid;
+      let balance = numberConverter(currentPrincipal - principalPaid);
       setPrincipalPaidArray([...principalPaidArray, principalPaid]);
       setInterestPaidArray([...interestPaidArray, paymentInterestPaid]);
       setNewEndingPrincipalArray([...newEndingPrincipalArray, balance]);
@@ -128,8 +129,7 @@ const App = () => {
           currentExtraPrincipal * ((interestRate * 0.01) / 12),
       );
       let principalExtraPaid = numberConverter(extraPayment + monthlyPayment - paymentExtraInterestPaid );
-      console.log({principalExtraPaid});
-      let extraBalance = currentExtraPrincipal - principalExtraPaid;
+      let extraBalance = numberConverter(currentExtraPrincipal - principalExtraPaid);
       setExtraPrincipalPaidArray([...extraPrincipalPaidArray, principalExtraPaid]);
       setExtraInterestPaidArray([...extraInterestPaidArray, paymentExtraInterestPaid]);
       setExtraNewEndingPrincipalArray([...extraNewEndingPrincipalArray, extraBalance]);
@@ -172,22 +172,10 @@ const App = () => {
       }
 
   };
-
-
-  const handleResetMortgageAmount = (e) => {
+  const handleReset = (e, setEvent)=>{
     let result = parseFloat(e);
-    setPrincipal(result);
-  };
-
-  const handleResetInterestRate = (e) => {
-    let result = parseFloat(e);
-    setInterestRate(result);
-  };
-
-  const handleResetMonthlyPayment = (e) => {
-    let result = parseFloat(e);
-    setMonthlyPayment(result);
-  };
+    setEvent(result);
+  }
 
   const handleResetExtraMonthlyPayment = (e)=>{
     let result = parseFloat(e);
@@ -215,7 +203,7 @@ const App = () => {
                       name="Mortgage"
                       value={principal}
                       onChange={(e) =>
-                          handleResetMortgageAmount(e.currentTarget.value)
+                          handleReset(e.currentTarget.value, setPrincipal)
                       }
                   ></input>
               )) || <span>{principal}</span>}
@@ -227,7 +215,9 @@ const App = () => {
                       type="number"
                       name="Interest"
                       value={interestRate}
-                      onChange={(e) => handleResetInterestRate(e.currentTarget.value)}
+                      onChange={(e) =>
+                          handleReset(e.currentTarget.value, setInterestRate)
+                      }
                   ></input>
               )) || <span>{interestRate}</span>}
             </label>
@@ -239,7 +229,8 @@ const App = () => {
                       name="MonthlyPayment"
                       value={monthlyPayment}
                       onChange={(e) =>
-                          handleResetMonthlyPayment(e.currentTarget.value)
+                          // handleResetMonthlyPayment(e.currentTarget.value)
+                          handleReset(e.currentTarget.value, setMonthlyPayment)
                       }
                   ></input>
               )) || <span>{monthlyPayment}</span>}
@@ -253,7 +244,7 @@ const App = () => {
                       name="ExtraMonthlyPayment"
                       value={extraPayment}
                       onChange={(e) =>
-                          handleResetExtraMonthlyPayment(e.currentTarget.value)
+                          handleReset(e.currentTarget.value, setExtraPayment)
                       }
                   ></input>
               )) || <span>{extraPayment}</span>}
