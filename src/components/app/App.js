@@ -63,14 +63,17 @@ const App = () => {
       );
     }
 
-
-
-    const processPayment = () => {
+    const processEachPayment = (num)=>{
       let paymentInterestPaid = numberConverter(
           currentPrincipal * ((interestRate * 0.01) / 12),
       );
-      let principalPaid = numberConverter(monthlyPayment - paymentInterestPaid);
-      // let balance = numberConverter(currentPrincipal - principalPaid);
+      let principalPaid;
+      ////0 is last payment
+      if(num == 0){
+        principalPaid = numberConverter(currentPrincipal);
+      }else{
+        principalPaid = numberConverter(monthlyPayment - paymentInterestPaid);
+      }
       let balance = numberConverter(currentPrincipal - principalPaid);
       setPrincipalPaidArray([...principalPaidArray, principalPaid]);
       setInterestPaidArray([...interestPaidArray, paymentInterestPaid]);
@@ -79,23 +82,7 @@ const App = () => {
       let monthDateIndex =
           monthDate.length - Math.floor(monthDate.length / 12) * 12;
       setMonthDate([...monthDate, monthArray[monthDateIndex]]);
-    };
-
-    const processLastPayment = () => {
-      // console.log(`last payment ${currentPrincipal}`);
-      console.log('in Process Last Payment');
-      let paymentInterestPaid = numberConverter(
-          currentPrincipal * ((interestRate * 0.01) / 12),
-      );
-      let principalPaid = numberConverter(currentPrincipal);
-      let balance = numberConverter(currentPrincipal - principalPaid);
-      setPrincipalPaidArray([...principalPaidArray, principalPaid]);
-      setInterestPaidArray([...interestPaidArray, paymentInterestPaid]);
-      setNewEndingPrincipalArray([...newEndingPrincipalArray, balance]);
-      let monthDateIndex =
-          monthDate.length - Math.floor(monthDate.length / 12) * 12;
-      setMonthDate([...monthDate, monthArray[monthDateIndex]]);
-    };
+    }
 
     switch (true) {
       case (newEndingPrincipalArray.length < 1):
@@ -103,10 +90,10 @@ const App = () => {
         break;
       case (currentPrincipal > monthlyPayment &&
           newEndingPrincipalArray.length >= 1):
-        processPayment();
+        processEachPayment(1);
         break;
       case (currentPrincipal < monthlyPayment) :
-        processLastPayment();
+        processEachPayment(0);
         break;
       case (newEndingPrincipalArray[newEndingPrincipalArray.length - 1] <= 0):
         break;
