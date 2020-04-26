@@ -4,42 +4,14 @@ import numberConverter from './numberConverter';
 import RevealData from './DataRevealed';
 import Footer from './Footer';
 
-///Dates
-let todayDate = new Date();
-let monthToday = todayDate.getMonth();
-let yearToday = todayDate.getFullYear();
-
-const titleInfo = [
-  'Date',
-  'Principal Paid',
-  'Interest Paid',
-  'Ending Principal',
-];
-const titleExtraInfo = ['Principal Paid', 'Interest Paid', 'Ending Principal'];
 
 const App = () => {
-
-  let monthArray = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  let yearArray = [2020];
 
   // // //User Input
   const [principal, setPrincipal] = useState(172000);
   const [interestRate, setInterestRate] = useState(3.75);
   const [monthlyPayment, setMonthlyPayment] = useState(1500);
-  const [extraPayment, setExtraPayment] = useState(100);
+  const [extraPayment, setExtraPayment] = useState(1000);
 
   //Extra payment
   const [extraPrincipalPaidArray, setExtraPrincipalPaidArray] = useState([]);
@@ -53,7 +25,6 @@ const App = () => {
   const [principalPaidArray, setPrincipalPaidArray] = useState([]);
   const [interestPaidArray, setInterestPaidArray] = useState([]);
   const [newEndingPrincipalArray, setNewEndingPrincipalArray] = useState([]);
-  const [monthDate, setMonthDate] = useState([]);
 
   const generateCalculation = () => {
     let currentPrincipal;
@@ -69,7 +40,7 @@ const App = () => {
       );
       let principalPaid;
       ////0 is last payment
-      if(num == 0){
+      if(num === 0){
         principalPaid = numberConverter(currentPrincipal);
       }else{
         principalPaid = numberConverter(monthlyPayment - paymentInterestPaid);
@@ -78,10 +49,6 @@ const App = () => {
       setPrincipalPaidArray([...principalPaidArray, principalPaid]);
       setInterestPaidArray([...interestPaidArray, paymentInterestPaid]);
       setNewEndingPrincipalArray([...newEndingPrincipalArray, balance]);
-
-      let monthDateIndex =
-          monthDate.length - Math.floor(monthDate.length / 12) * 12;
-      setMonthDate([...monthDate, monthArray[monthDateIndex]]);
     }
 
     switch (true) {
@@ -118,7 +85,7 @@ const App = () => {
       );
       let principalExtraPaid;
       ///Last payment 0
-      if(num == 0){
+      if(num === 0){
         principalExtraPaid = numberConverter(currentExtraPrincipal);
       }else{
         principalExtraPaid = numberConverter(extraPayment + monthlyPayment - paymentExtraInterestPaid );

@@ -113,3 +113,19 @@ button{
 .footerDetails{
   height: 3.5rem;
 }
+
+
+.headerCalc {
+  width: 100%;
+  color: $primary-color;
+}
+
+.negative {
+  color: red;
+  font-weight: bold;
+}
+
+.positive {
+  color: lawngreen;
+  font-weight: bolder;
+}

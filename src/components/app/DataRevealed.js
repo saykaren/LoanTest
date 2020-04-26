@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import numberConverter from './numberConverter';
 
 const RevealData = ({interestPaidArray, mortgage, extraInterestPaidArray})=>{
@@ -6,7 +6,6 @@ const RevealData = ({interestPaidArray, mortgage, extraInterestPaidArray})=>{
     let paidToBank;
     let extraCalcPaidToBank;
 
-    // const arrayResults = interestPaidArray;
     if(interestPaidArray.length > 0){
         paidToBank = numberConverter(interestPaidArray.reduce((accu, cur)=>(
 
@@ -22,48 +21,56 @@ const RevealData = ({interestPaidArray, mortgage, extraInterestPaidArray})=>{
     }
     const totalPaid = paidToBank + parseInt(mortgage);
     const extraTotalPaid = extraCalcPaidToBank + parseInt(mortgage);
+    let interestWidth = (paidToBank/totalPaid)*100;
+
 
     return(
 
         <section >
             {extraInterestPaidArray.length>0 && <div className="dataForm">
-                <div className="dataSection">
-                    You Paid the Bank ${extraCalcPaidToBank} you saved ${(paidToBank-extraCalcPaidToBank).toFixed(2)}
+            <h2 className='headerCalc'>Amortization with Extra Payment</h2>
+            <div className="dataSection">
+                Your loan will be paid off in <span className='positive'> {extraInterestPaidArray.length} months ({(extraInterestPaidArray.length/12).toFixed(2)} years)</span>
+            </div>
+            <div className="dataSection">
+                You Paid the Bank <span className='negative'> ${extraCalcPaidToBank}</span> you saved <span className='positive'> ${(paidToBank-extraCalcPaidToBank).toFixed(2)}
+                </span> by your extra payments.
+            </div>
+            <div className="dataSection">
+                Total you paid <span className='negative'> ${extraTotalPaid}</span> for a loan of ${mortgage}
+            </div>
+            <div className="bar dataSection" >
+                <div id="principalBar" style={{width: `{${mortgage}/${extraTotalPaid}}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
+                    ${mortgage} Mortgage
                 </div>
-                <div className="dataSection">
-                    Total you paid ${extraTotalPaid} for a loan of ${mortgage}
+                <div id="interestPaid" style={{width: `{${extraCalcPaidToBank}/${extraTotalPaid}}%`, backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
+                    ${extraCalcPaidToBank} Interest Paid
                 </div>
-                <div className="bar dataSection" >
-                    <div id="principalBar" style={{width: `{${mortgage}/${extraTotalPaid}}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
-                        ${mortgage} Mortgage
-                    </div>
-                    <div id="interestPaid" style={{width: `{${extraCalcPaidToBank}/${extraTotalPaid}}%`, backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
-                        ${extraCalcPaidToBank} Interest Paid
-                    </div>
-                </div>
-                <div className="dataSection">
-                    Will take you {extraInterestPaidArray.length} months ({(extraInterestPaidArray.length/12).toFixed(2)} years)to pay off this loan
-                </div>
-            </div>}
+            </div>
+        </div>}
             {interestPaidArray.length>0 && <div className="dataForm">
+                <h2 className='headerCalc'>Amortization Typical Payment</h2>
                 <div className="dataSection">
-                    You Paid the Bank ${paidToBank}
+                    Your loan will be paid off in <span className='positive'> {interestPaidArray.length} months ({(interestPaidArray.length/12).toFixed(2)} years)</span>
                 </div>
                 <div className="dataSection">
-                    Total you paid ${totalPaid} for a loan of ${mortgage}
+                    You Paid the Bank <span className='negative'> ${paidToBank}</span>
+                </div>
+                <div className="dataSection">
+                    Total you paid <span className='negative'> ${totalPaid}</span> for a loan of ${mortgage}
                 </div>
                 <div className="bar dataSection" >
                     <div id="principalBar" style={{width: `{${mortgage}/${totalPaid}}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
                         ${mortgage} Mortgage
                     </div>
-                    <div id="interestPaid" style={{width: `{${paidToBank}/${totalPaid}}%`, backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
+                    <div id="interestPaid" style={{backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
+                        <div style={{width: `${interestWidth}%`, backgroundColor: 'red'}}>Interest</div>
                         ${paidToBank} Interest Paid
                     </div>
                 </div>
-                <div className="dataSection">
-                    Will take you {interestPaidArray.length} months ({(interestPaidArray.length/12).toFixed(2)} years)to pay off this loan
-                </div>
+
             </div>}
+
         </section>
     )
 }
