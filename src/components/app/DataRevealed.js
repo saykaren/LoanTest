@@ -22,6 +22,7 @@ const RevealData = ({interestPaidArray, mortgage, extraInterestPaidArray})=>{
     const totalPaid = paidToBank + parseInt(mortgage);
     const extraTotalPaid = extraCalcPaidToBank + parseInt(mortgage);
     let interestWidth = (paidToBank/totalPaid)*100;
+    let principalWidth = 100-interestWidth;
 
 
     return(
@@ -57,15 +58,28 @@ const RevealData = ({interestPaidArray, mortgage, extraInterestPaidArray})=>{
                     You Paid the Bank <span className='negative'> ${paidToBank}</span>
                 </div>
                 <div className="dataSection">
-                    Total you paid <span className='negative'> ${totalPaid}</span> for a loan of ${mortgage}
-                </div>
-                <div className="bar dataSection" >
-                    <div id="principalBar" style={{width: `{${mortgage}/${totalPaid}}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
-                        ${mortgage} Mortgage
+                    Loan Amount: ${mortgage}<br/>
+                    Total Interest Paid: <span className='negative'>${paidToBank}</span>
+                    <div className='bar'>
+                        <div id="principalBar" style={{width: `${principalWidth}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
+                            {parseInt(principalWidth)}% Principal
+                        </div>
+                        <div id="interestPaid" style={{width: `${interestWidth}%`, backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
+                            {parseInt(interestWidth)}%
+                        </div>
                     </div>
-                    <div id="interestPaid" style={{backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
-                        <div style={{width: `${interestWidth}%`, backgroundColor: 'red'}}>Interest</div>
-                        ${paidToBank} Interest Paid
+                    Total Paid: <span className='negative'> ${parseInt(totalPaid)}</span>
+                </div>
+                <div className="dataSection" >
+                    <div>Payments to the Bank </div>
+                    <div className='bar'>
+
+                    <div id="principalBar" style={{width: `${principalWidth}%`, backgroundColor: '#282c34', border: '4px solid white'}}>
+                        {parseInt(principalWidth)}% Principal
+                    </div>
+                    <div id="interestPaid" style={{width: `${interestWidth}%`, backgroundColor: '#61dafb', border: '4px solid white', color: '#282c34' }}>
+                        {parseInt(interestWidth)}%
+                    </div>
                     </div>
                 </div>
 
