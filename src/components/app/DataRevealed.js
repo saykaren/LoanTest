@@ -50,7 +50,8 @@ const RevealData = ({
                 style={{
                   width: `${extraPrincipalWidth}%`,
                   backgroundColor: '#282c34',
-                  border: '4px solid white',
+                  border: '2px solid white',
+                  fontSize: 'x-small',
                 }}
               >
                 {parseInt(extraPrincipalWidth)}% Principal
@@ -60,8 +61,9 @@ const RevealData = ({
                 style={{
                   width: `${extraInterestWidth}%`,
                   backgroundColor: '#61dafb',
-                  border: '4px solid white',
+                  border: '2px solid white',
                   color: '#282c34',
+                  fontSize: 'x-small',
                 }}
               >
                 {parseInt(extraInterestWidth)}%
@@ -93,7 +95,8 @@ const RevealData = ({
                 style={{
                   width: `${principalWidth}%`,
                   backgroundColor: '#282c34',
-                  border: '4px solid white',
+                  border: '2px solid white',
+                  fontSize: 'x-small',
                 }}
               >
                 {parseInt(principalWidth)}% Principal
@@ -103,8 +106,9 @@ const RevealData = ({
                 style={{
                   width: `${interestWidth}%`,
                   backgroundColor: '#61dafb',
-                  border: '4px solid white',
+                  border: '2px solid white',
                   color: '#282c34',
+                  fontSize: 'x-small',
                 }}
               >
                 {parseInt(interestWidth)}%
