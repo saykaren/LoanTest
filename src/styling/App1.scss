@@ -20,7 +20,7 @@ button{
 }
 .bar {
   display: flex;
-}
+  }
 
 #table {
   border: 1px solid black;
@@ -128,4 +128,5 @@ button{
 .positive {
   color: lawngreen;
   font-weight: bolder;
+  text-shadow: 2px 2px $primary-color;
 }
