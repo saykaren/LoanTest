@@ -31,94 +31,139 @@ const RevealData = ({
     <section>
       {extraInterestPaidArray.length > 0 && (
         <div className="dataForm">
-            <h2 className="headerCalc">Amortization with   <span className="positive">Extra</span> Payment</h2>
+          <h2 className="headerCalc">
+            Amortization with <span className="positive">Extra</span> Payment
+          </h2>
           <div className="dataSection">
-            Your loan will be paid off in {' '}
+            Your loan will be paid off in{' '}
             <span className="positive">
               {extraInterestPaidArray.length} months (
               {(extraInterestPaidArray.length / 12).toFixed(2)} years)
             </span>
           </div>
           <div className="dataSection">
-            Loan Amount: ${mortgage}
-            <br />
-            Total Interest Paid:{' '}
-            <span className="negative">${extraCalcPaidToBank}</span>
-            <div className="bar">
-              <div
-                id="principalBar"
-                style={{
-                  width: `${extraPrincipalWidth}%`,
-                  backgroundColor: '#282c34',
-                  border: '2px solid white',
-                  fontSize: 'x-small',
-                }}
-              >
-                {parseInt(extraPrincipalWidth)}% Principal
-              </div>
-              <div
-                id="interestPaid"
-                style={{
-                  width: `${extraInterestWidth}%`,
-                  backgroundColor: '#61dafb',
-                  border: '2px solid white',
-                  color: '#282c34',
-                  fontSize: 'x-small',
-                }}
-              >
-                {parseInt(extraInterestWidth)}%
-              </div>
+            <div>
+              Loan Amount: ${mortgage} ({parseInt(extraPrincipalWidth)}%)
             </div>
+            <div>
+              Total Interest Paid:{' '}
+              <span className="negative">${extraCalcPaidToBank} ({parseInt(extraInterestWidth)}%)</span>
+            </div>
+            <div>
+
             Total Paid:{' '}
             <span className="negative"> ${parseInt(extraTotalPaid)}</span>
+            </div>
           </div>
-        </div>
+          <div className="dataSection">
+            <div className='negative'>
+              Total Paid ${parseInt(extraTotalPaid)}
+            </div>
+            <div className='growGraph'>
+              <div
+                  id="principalBar"
+                  className="detailsColumn"
+                  style={{
+                    height: `${extraPrincipalWidth/2}%`,
+                    backgroundColor: '#61dafb',
+                    border: '2px solid white',
+                    color: '#282c34',
+
+                  }}
+              >
+                {parseInt(extraPrincipalWidth)}%
+              </div>
+              <div
+                  id="interestPaid"
+                  className="detailsColumn"
+                  style={{
+                    height: `${extraInterestWidth/2}%`,
+                    backgroundColor: 'red',
+                    border: '2px solid white',
+                    color: '#282c34',
+                  }}
+              >
+                {parseInt(extraInterestWidth)}%
+
+              </div>
+
+            </div>
+            <div
+            style={{display: 'flex', justifyContent: 'space-around'}}>
+              <div>Principal</div>
+              <div className='negative'>Interest</div>
+            </div>
+          </div>
+         </div>
       )}
       {interestPaidArray.length > 0 && (
-        <div className="dataForm">
-          <h2 className="headerCalc">Amortization Typical Payment</h2>
-          <div className="dataSection">
-            Your loan will be paid off in{' '}
-            <span className="positive">
-              {' '}
+          <div className="dataForm">
+            <h2 className="headerCalc">
+              Amortization Typical Payment
+            </h2>
+            <div className="dataSection">
+              Your loan will be paid off in{' '}
+              <span className="positive">
               {interestPaidArray.length} months (
-              {(interestPaidArray.length / 12).toFixed(2)} years)
+                {(interestPaidArray.length / 12).toFixed(2)} years)
             </span>
-          </div>
-          <div className="dataSection">
-            Loan Amount: ${mortgage}
-            <br />
-            Total Interest Paid: <span className="negative">${paidToBank}</span>
-            <div className="bar">
-              <div
-                id="principalBar"
-                style={{
-                  width: `${principalWidth}%`,
-                  backgroundColor: '#282c34',
-                  border: '2px solid white',
-                  fontSize: 'x-small',
-                }}
-              >
-                {parseInt(principalWidth)}% Principal
+            </div>
+            <div className="dataSection">
+              <div>
+                Loan Amount: ${mortgage} ({parseInt(principalWidth)}%)
               </div>
-              <div
-                id="interestPaid"
-                style={{
-                  width: `${interestWidth}%`,
-                  backgroundColor: '#61dafb',
-                  border: '2px solid white',
-                  color: '#282c34',
-                  fontSize: 'x-small',
-                }}
-              >
-                {parseInt(interestWidth)}%
+              <div>
+                Total Interest Paid:{' '}
+                <span className="negative">${paidToBank} ({parseInt(interestWidth)}%)</span>
+              </div>
+              <div>
+
+                Total Paid:{' '}
+                <span className="negative"> ${parseInt(totalPaid)}</span>
               </div>
             </div>
-            Total Paid:{' '}
-            <span className="negative"> ${parseInt(totalPaid)}</span>
+            <div className="dataSection">
+              <div className='negative'>
+                Total Paid ${parseInt(totalPaid)}
+              </div>
+              <div className='growGraph'>
+                <div
+                    id="principalBar"
+                    className="detailsColumn"
+                    style={{
+                      height: `${principalWidth/2}%`,
+                      backgroundColor: '#61dafb',
+                      border: '2px solid white',
+                      color: '#282c34',
+
+                    }}
+                >
+                  {parseInt(principalWidth)}%
+                </div>
+                <div
+                    id="interestPaid"
+                    className="detailsColumn"
+                    style={{
+                      height: `${interestWidth/2}%`,
+                      backgroundColor: 'red',
+                      border: '2px solid white',
+                      color: '#282c34',
+                    }}
+                >
+                  {parseInt(interestWidth)}%
+
+                </div>
+
+              </div>
+              <div
+                  style={{display: 'flex', justifyContent: 'space-around'}}>
+                <div>Principal</div>
+                <div className='negative'>Interest</div>
+              </div>
+            </div>
           </div>
-        </div>
       )}
+
     </section>
   );
 };
