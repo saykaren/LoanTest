@@ -153,12 +153,12 @@ const App = () => {
   // let savedTotalPaid = parseFloat(totalPaid-extraTotalPaid).toFixed(2);
   return (
       <section className="App">
-        <button
+        {/*<button*/}
 
-            onClick={() => calculateModalDetails()}
-        >
-          modal active
-        </button>
+        {/*    onClick={() => calculateModalDetails()}*/}
+        {/*>*/}
+        {/*  modal active*/}
+        {/*</button>*/}
         {modal && <div className="modal">
           <h2 className="modal-header">
             <span className='positiveLarge'>Savings!</span>
@@ -173,10 +173,10 @@ const App = () => {
             <div className='amounts positive'>
               {savedYears} years {savedMonths} months Saved!
             </div>
-            <div className='amounts positive'>
+            {/*<div className='amounts positive'>*/}
 
-              $XXXXX Saved
-            </div>
+            {/*  $XXXXX Saved*/}
+            {/*</div>*/}
 
           </div>
         </div>}
@@ -249,7 +249,7 @@ const App = () => {
         {/* ****Below is for extra********* */}
         { extraNewEndingPrincipalArray.length>1 &&
         <div id="flexTable">
-          {/*<div className="tableCell">Date</div>*/}
+
           <div className="tableCell">
             Extra Principal
             <div className="cellDetails">{principal}</div>
@@ -299,7 +299,7 @@ const App = () => {
         }
 
         <div id="flexTable">
-          {/*<div className="tableCell">Date</div>*/}
+
           <div className="tableCell">
             Principal
             <div className="cellDetails">{principal}</div>
