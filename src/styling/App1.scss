@@ -140,9 +140,41 @@ button{
   text-shadow: 2px 2px $primary-color;
 }
 
+.positiveLarge {
+  color: lawngreen;
+  font-weight: bolder;
+  text-shadow: 2px 2px $primary-color;
+  margin: 1em;
+}
+
 .growGraph {
   display: flex;
   height: 100px;
   justify-content: space-around;
   align-items: flex-end;
+}
+
+.amounts {
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.title {
+  margin: 1em;
+}
+
+.modal{
+  position: fixed;
+  background-color: $primary-color;
+  border: 3px solid white;
+  box-shadow: -2rem 2rem 2rem rgba(white, 0.2);
+  opacity: 0.95;
+  border-radius: 12px;
+  padding: 1rem;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

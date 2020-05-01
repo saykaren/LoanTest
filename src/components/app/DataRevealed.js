@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import numberConverter from './numberConverter';
 
 const RevealData = ({
@@ -27,29 +27,68 @@ const RevealData = ({
   let extraInterestWidth = (extraCalcPaidToBank / extraTotalPaid) * 100;
   let extraPrincipalWidth = 100 - extraInterestWidth;
 
+  const calculateModalDetails = ()=>{
+    let savedYears = parseInt(interestPaidArray.length-extraInterestPaidArray.length)/12
+    let savedMonths = (interestPaidArray.length-extraInterestPaidArray.length) % 12;
+  }
+
+
+
+  // Modal
+  const [modal, setModal] = useState(false);
+
   return (
     <section>
+      <button
+
+          onClick={() => setModal(true)}
+      >
+        modal active
+      </button>
+      {modal && <div className="modal">
+        <h2 className="modal-header">
+          <span className='positiveLarge'>Savings!</span>
+          <button
+              className="modal-close"
+              onClick={()=>setModal(false)}
+          >
+            X
+          </button>
+        </h2>
+        <div className="modal-content">
+          <div className='amounts positive'>
+           XX years  Saved!
+          </div>
+          <div className='amounts positive'>
+
+            $XXXXX Saved
+          </div>
+
+        </div>
+      </div>}
       {extraInterestPaidArray.length > 0 && (
         <div className="dataForm">
           <h2 className="headerCalc">
             Amortization with <span className="positive">Extra</span> Payment
           </h2>
           <div className="dataSection">
-            Your loan will be paid off in{' '}
-            <span className="positive">
-              {extraInterestPaidArray.length} months (
-              {(extraInterestPaidArray.length / 12).toFixed(2)} years)
-            </span>
+            <div className='title'>
+            Your loan will be paid off in{' '}<br/>
+            <div className="positiveLarge">
+              {parseInt(extraInterestPaidArray.length / 12)} years {extraInterestPaidArray.length % 12} months
+            </div>
+            ({extraInterestPaidArray.length} months)
+            </div>
           </div>
           <div className="dataSection">
-            <div>
-              Loan Amount: ${mortgage} ({parseInt(extraPrincipalWidth)}%)
+            <div className='amounts'>
+              Loan Amount: ${mortgage} ({parseFloat(extraPrincipalWidth).toFixed(2)}%)
             </div>
-            <div>
+            <div className='amounts'>
               Total Interest Paid:{' '}
               <span className="negative">${extraCalcPaidToBank} ({parseInt(extraInterestWidth)}%)</span>
             </div>
-            <div>
+            <div className='amounts'>
 
             Total Paid:{' '}
             <span className="negative"> ${parseInt(extraTotalPaid)}</span>
@@ -71,7 +110,7 @@ const RevealData = ({
 
                   }}
               >
-                {parseInt(extraPrincipalWidth)}%
+                {parseFloat(extraPrincipalWidth).toFixed(2)}%
               </div>
               <div
                   id="interestPaid"
@@ -83,7 +122,7 @@ const RevealData = ({
                     color: '#282c34',
                   }}
               >
-                {parseInt(extraInterestWidth)}%
+                {parseFloat(extraInterestWidth).toFixed(2)}%
 
               </div>
 
@@ -102,21 +141,25 @@ const RevealData = ({
               Amortization Typical Payment
             </h2>
             <div className="dataSection">
+              <div className='title'>
+
               Your loan will be paid off in{' '}
-              <span className="positive">
-              {interestPaidArray.length} months (
-                {(interestPaidArray.length / 12).toFixed(2)} years)
-            </span>
+
+              <div className="positiveLarge">
+                {parseInt(interestPaidArray.length / 12)} years {interestPaidArray.length % 12} months
+            </div><br/>
+              ({interestPaidArray.length} months)
+              </div>
             </div>
             <div className="dataSection">
-              <div>
-                Loan Amount: ${mortgage} ({parseInt(principalWidth)}%)
+              <div className='amounts'>
+                Loan Amount: ${mortgage} ({parseFloat(principalWidth).toFixed(2)}%)
               </div>
-              <div>
+              <div className='amounts'>
                 Total Interest Paid:{' '}
                 <span className="negative">${paidToBank} ({parseInt(interestWidth)}%)</span>
               </div>
-              <div>
+              <div className='amounts'>
 
                 Total Paid:{' '}
                 <span className="negative"> ${parseInt(totalPaid)}</span>

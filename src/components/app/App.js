@@ -26,6 +26,9 @@ const App = () => {
   const [interestPaidArray, setInterestPaidArray] = useState([]);
   const [newEndingPrincipalArray, setNewEndingPrincipalArray] = useState([]);
 
+  // Modal
+  // const [modal, setModal] = useState(false);
+
   const generateCalculation = () => {
     let currentPrincipal;
     if (newEndingPrincipalArray.length > 0) {
@@ -140,6 +143,33 @@ const App = () => {
 
   return (
       <section className="App">
+        {/*{modal && <div className="modal">*/}
+        {/*  <h2 className="modal-header">*/}
+        {/*    <span className='positiveLarge'>Savings!</span>*/}
+        {/*    <button*/}
+        {/*        className="modal-close"*/}
+        {/*        onClick={()=>setModal(false)}*/}
+        {/*    >*/}
+        {/*      X*/}
+        {/*    </button>*/}
+        {/*  </h2>*/}
+        {/*  <div className="modal-content">*/}
+        {/*    <div className='amounts positive'>*/}
+        {/*      XXX years Saved!*/}
+        {/*    </div>*/}
+        {/*    <div className='amounts positive'>*/}
+
+        {/*     $XXXXX Saved*/}
+        {/*    </div>*/}
+
+        {/*  </div>*/}
+        {/*</div>}*/}
+        {/*<button*/}
+
+        {/*    onClick={() => setModal(true)}*/}
+        {/*>*/}
+        {/*  modal active*/}
+        {/*</button>*/}
         <div id="inputSection">
           <form className="inputForm">
             <label className="inputSection">
