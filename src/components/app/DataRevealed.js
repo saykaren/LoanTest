@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import numberConverter from './numberConverter';
 
+export let savingTotalPaid = 0;
+
 const RevealData = ({
   interestPaidArray,
   mortgage,
@@ -26,7 +28,7 @@ const RevealData = ({
 
   let extraInterestWidth = (extraCalcPaidToBank / extraTotalPaid) * 100;
   let extraPrincipalWidth = 100 - extraInterestWidth;
-
+  savingTotalPaid = totalPaid-extraCalcPaidToBank;
 
   return (
     <section>

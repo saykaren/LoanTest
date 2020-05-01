@@ -3,6 +3,7 @@ import '../../styling/App1.scss';
 import numberConverter from './numberConverter';
 import RevealData from './DataRevealed';
 import Footer from './Footer';
+import savingTotalPaid from './DataRevealed';
 
 
 const App = () => {
@@ -143,9 +144,9 @@ const App = () => {
   }
 
 
-  const calculateModalDetails = ()=>{
-    setModal(true)
-  }
+  // const calculateModalDetails = ()=>{
+  //   setModal(true)
+  // }
 
 
   let savedYears = parseInt((interestPaidArray.length-extraInterestPaidArray.length)/12)
@@ -156,27 +157,28 @@ const App = () => {
         {/*<button*/}
 
         {/*    onClick={() => calculateModalDetails()}*/}
+        {/*    className='modalButton'*/}
         {/*>*/}
         {/*  modal active*/}
         {/*</button>*/}
         {modal && <div className="modal">
           <h2 className="modal-header">
-            <span className='positiveLarge'>Savings!</span>
             <button
                 className="modal-close"
                 onClick={()=>setModal(false)}
             >
               X
             </button>
+            <span className='positiveLarge'>Savings!</span>
           </h2>
           <div className="modal-content">
             <div className='amounts positive'>
               {savedYears} years {savedMonths} months Saved!
             </div>
-            {/*<div className='amounts positive'>*/}
+            <div className='amounts positive'>
 
-            {/*  $XXXXX Saved*/}
-            {/*</div>*/}
+              ${savingTotalPaid} Saved
+            </div>
 
           </div>
         </div>}
@@ -238,7 +240,7 @@ const App = () => {
             </label>
           </form>
         </div>
-        {(newEndingPrincipalArray[newEndingPrincipalArray.length - 1] > 0 ||
+        {(newEndingPrincipalArray[newEndingPrincipalArray.length - 1] < 0 ||
             newEndingPrincipalArray[newEndingPrincipalArray.length - 1] ===
             undefined) && (
             <button onClick={() => calculate()}>Calculate</button>
