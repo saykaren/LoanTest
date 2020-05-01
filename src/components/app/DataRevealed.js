@@ -27,46 +27,11 @@ const RevealData = ({
   let extraInterestWidth = (extraCalcPaidToBank / extraTotalPaid) * 100;
   let extraPrincipalWidth = 100 - extraInterestWidth;
 
-  const calculateModalDetails = ()=>{
-    let savedYears = parseInt(interestPaidArray.length-extraInterestPaidArray.length)/12
-    let savedMonths = (interestPaidArray.length-extraInterestPaidArray.length) % 12;
-  }
-
-
-
-  // Modal
-  const [modal, setModal] = useState(false);
 
   return (
     <section>
-      <button
 
-          onClick={() => setModal(true)}
-      >
-        modal active
-      </button>
-      {modal && <div className="modal">
-        <h2 className="modal-header">
-          <span className='positiveLarge'>Savings!</span>
-          <button
-              className="modal-close"
-              onClick={()=>setModal(false)}
-          >
-            X
-          </button>
-        </h2>
-        <div className="modal-content">
-          <div className='amounts positive'>
-           XX years  Saved!
-          </div>
-          <div className='amounts positive'>
-
-            $XXXXX Saved
-          </div>
-
-        </div>
-      </div>}
-      {extraInterestPaidArray.length > 0 && (
+        {extraInterestPaidArray.length > 0 && (
         <div className="dataForm">
           <h2 className="headerCalc">
             Amortization with <span className="positive">Extra</span> Payment

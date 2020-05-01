@@ -27,7 +27,7 @@ const App = () => {
   const [newEndingPrincipalArray, setNewEndingPrincipalArray] = useState([]);
 
   // Modal
-  // const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const generateCalculation = () => {
     let currentPrincipal;
@@ -90,6 +90,7 @@ const App = () => {
       ///Last payment 0
       if(num === 0){
         principalExtraPaid = numberConverter(currentExtraPrincipal);
+        setModal(true);
       }else{
         principalExtraPaid = numberConverter(extraPayment + monthlyPayment - paymentExtraInterestPaid );
       }
@@ -141,35 +142,44 @@ const App = () => {
     }
   }
 
+
+  const calculateModalDetails = ()=>{
+    setModal(true)
+  }
+
+
+  let savedYears = parseInt((interestPaidArray.length-extraInterestPaidArray.length)/12)
+  let savedMonths = (interestPaidArray.length-extraInterestPaidArray.length) % 12;
+  // let savedTotalPaid = parseFloat(totalPaid-extraTotalPaid).toFixed(2);
   return (
       <section className="App">
-        {/*{modal && <div className="modal">*/}
-        {/*  <h2 className="modal-header">*/}
-        {/*    <span className='positiveLarge'>Savings!</span>*/}
-        {/*    <button*/}
-        {/*        className="modal-close"*/}
-        {/*        onClick={()=>setModal(false)}*/}
-        {/*    >*/}
-        {/*      X*/}
-        {/*    </button>*/}
-        {/*  </h2>*/}
-        {/*  <div className="modal-content">*/}
-        {/*    <div className='amounts positive'>*/}
-        {/*      XXX years Saved!*/}
-        {/*    </div>*/}
-        {/*    <div className='amounts positive'>*/}
+        <button
 
-        {/*     $XXXXX Saved*/}
-        {/*    </div>*/}
+            onClick={() => calculateModalDetails()}
+        >
+          modal active
+        </button>
+        {modal && <div className="modal">
+          <h2 className="modal-header">
+            <span className='positiveLarge'>Savings!</span>
+            <button
+                className="modal-close"
+                onClick={()=>setModal(false)}
+            >
+              X
+            </button>
+          </h2>
+          <div className="modal-content">
+            <div className='amounts positive'>
+              {savedYears} years {savedMonths} months Saved!
+            </div>
+            <div className='amounts positive'>
 
-        {/*  </div>*/}
-        {/*</div>}*/}
-        {/*<button*/}
+              $XXXXX Saved
+            </div>
 
-        {/*    onClick={() => setModal(true)}*/}
-        {/*>*/}
-        {/*  modal active*/}
-        {/*</button>*/}
+          </div>
+        </div>}
         <div id="inputSection">
           <form className="inputForm">
             <label className="inputSection">
@@ -235,7 +245,7 @@ const App = () => {
         )}
 
         <button onClick={() => window.location.reload()}>Reset Numbers</button>
-        <RevealData interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray} />
+        <RevealData interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray}/>
         {/* ****Below is for extra********* */}
         { extraNewEndingPrincipalArray.length>1 &&
         <div id="flexTable">
