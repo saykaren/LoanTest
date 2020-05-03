@@ -148,10 +148,27 @@ const App = () => {
   //   setModal(true)
   // }
 
+  //Calculate total paid
+
+  let totalPaidToBank;
+  let extraTotalPaidToBank;
+  if (interestPaidArray.length > 0) {
+    totalPaidToBank = numberConverter(
+        interestPaidArray.reduce((accu, cur) => accu + cur),
+    );
+  }
+  if (extraInterestPaidArray.length > 0) {
+    extraTotalPaidToBank = numberConverter(
+        extraInterestPaidArray.reduce((accu, cur) => accu + cur),
+    );
+  }
 
   let savedYears = parseInt((interestPaidArray.length-extraInterestPaidArray.length)/12)
   let savedMonths = (interestPaidArray.length-extraInterestPaidArray.length) % 12;
-  // let savedTotalPaid = parseFloat(totalPaid-extraTotalPaid).toFixed(2);
+  let savedTotalPaid = parseFloat(totalPaidToBank-extraTotalPaidToBank).toFixed(2);
+
+
+
   return (
       <section className="App">
         {/*<button*/}
@@ -177,7 +194,7 @@ const App = () => {
             </div>
             <div className='amounts positive'>
 
-              ${savingTotalPaid} Saved
+              ${savedTotalPaid} Saved
             </div>
 
           </div>
