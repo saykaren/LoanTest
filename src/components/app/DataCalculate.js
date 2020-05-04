@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styling/App1.scss';
 import numberConverter from './numberConverter';
-import RevealData from './DataRevealed';
 import Modal from './Modal';
-
+import DataAnalysis from './DataAnalysis';
 
 const DataCalculate = ()=>{
     // User Input
@@ -161,64 +160,34 @@ const DataCalculate = ()=>{
     let savedMonths = (interestPaidArray.length-extraInterestPaidArray.length) % 12;
     let savedTotalPaid = parseFloat(totalPaidToBank-extraTotalPaidToBank).toFixed(2);
 
+
+    const InputLabelOne = (handleReset, title, arrayCheck, value, setProperty)=>{
+        return(
+            <label className="inputSection">
+                {title}:
+                {(arrayCheck.length <= 1 && (
+                    <input
+                        type="number"
+                        name="Mortgage"
+                        value={value}
+                        onChange={(e) =>
+                            handleReset(e.currentTarget.value, setProperty)
+                        }
+                    ></input>
+                )) || <span>{value}</span>}
+            </label>
+        )
+    }
     return(
         <section className="App">
             {modal && <Modal savedYears={savedYears} savedMonths={savedMonths} setModal={setModal} savedTotalPaid={savedTotalPaid}/>}
             <div id="inputSection">
                 <form className="inputForm">
-                    <label className="inputSection">
-                        Mortage:
-                        {(newEndingPrincipalArray.length <= 1 && (
-                            <input
-                                type="number"
-                                name="Mortgage"
-                                value={principal}
-                                onChange={(e) =>
-                                    handleReset(e.currentTarget.value, setPrincipal)
-                                }
-                            ></input>
-                        )) || <span>{principal}</span>}
-                    </label>
-                    <label className="inputSection">
-                        Interest Rate:
-                        {(newEndingPrincipalArray.length <= 1 && (
-                            <input
-                                type="number"
-                                name="Interest"
-                                value={interestRate}
-                                onChange={(e) =>
-                                    handleReset(e.currentTarget.value, setInterestRate)
-                                }
-                            ></input>
-                        )) || <span>{interestRate}</span>}
-                    </label>
-                    <label className="inputSection">
-                        Monthly Payment:
-                        {(newEndingPrincipalArray.length <= 1 && (
-                            <input
-                                type="number"
-                                name="MonthlyPayment"
-                                value={monthlyPayment}
-                                onChange={(e) =>
-                                    // handleResetMonthlyPayment(e.currentTarget.value)
-                                    handleReset(e.currentTarget.value, setMonthlyPayment)
-                                }
-                            ></input>
-                        )) || <span>{monthlyPayment}</span>}
-                    </label>
-                    <label className="inputSection">
-                        Extra Monthly Payment:
-                        {(newEndingPrincipalArray.length <= 1 && (
-                            <input
-                                type="number"
-                                name="ExtraMonthlyPayment"
-                                value={extraPayment}
-                                onChange={(e) =>
-                                    handleReset(e.currentTarget.value, setExtraPayment)
-                                }
-                            ></input>
-                        )) || <span>{extraPayment}</span>}
-                    </label>
+                    {InputLabelOne(handleReset, 'Mortgage Checking', newEndingPrincipalArray, principal, setPrincipal)}
+                    {InputLabelOne(handleReset, 'Interest Rate', newEndingPrincipalArray, interestRate, setInterestRate)}
+                    {InputLabelOne(handleReset, 'Monthly Payment', newEndingPrincipalArray, monthlyPayment, setMonthlyPayment)}
+                    {InputLabelOne(handleReset, 'Extra Monthly Payment', newEndingPrincipalArray, extraPayment, setExtraPayment)}
+
                 </form>
             </div>
             {(newEndingPrincipalArray[newEndingPrincipalArray.length - 1] < 0 ||
@@ -226,13 +195,12 @@ const DataCalculate = ()=>{
                 undefined) && (
                 <button onClick={() => calculate()}>Calculate</button>
             )}
-
             <button onClick={() => window.location.reload()}>Reset Numbers</button>
-            <RevealData interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray} extraTotalPaidToBank={extraTotalPaidToBank} totalPaidToBank={totalPaidToBank}/>
+
+            <DataAnalysis interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray} extraTotalPaidToBank={extraTotalPaidToBank} totalPaidToBank={totalPaidToBank}/>
             {/* ****Below is for extra********* */}
             { extraNewEndingPrincipalArray.length>1 &&
             <div id="flexTable">
-
                 <div className="tableCell">
                     Extra Principal
                     <div className="cellDetails">{principal}</div>

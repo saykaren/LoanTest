@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RevealData = ({
+const DataAnalysis = ({
   interestPaidArray,
   mortgage,
   extraInterestPaidArray,
@@ -153,4 +153,4 @@ const RevealData = ({
   );
 };
 
-export default RevealData;
+export default DataAnalysis;
