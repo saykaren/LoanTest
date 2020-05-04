@@ -299,17 +299,17 @@ const DataCalculate = () => {
             extraNewEndingPrincipalArray,
           )}
           {AmortizationColumn(
-            'Interest Paid With Extra Included',
+            'Interest Paid (EXTRA Calculation)',
             '-',
             extraInterestPaidArray,
           )}
           {AmortizationColumn(
-            'Principal Paid (Extra)',
+            'Principal Paid (EXTRA Calculation)',
             '-',
             extraPrincipalPaidArray,
           )}
           {AmortizationColumn(
-            'Ending Principal (Extra)',
+            'Ending Principal (EXTRA Calculation)',
             '',
             extraNewEndingPrincipalArray,
           )}
