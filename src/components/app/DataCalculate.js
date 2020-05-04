@@ -178,6 +178,20 @@ const DataCalculate = ()=>{
             </label>
         )
     }
+
+    const AmortizationColumn = (title, initialRow, arr)=>{
+        return(
+            <div className="tableCell">
+                {title}
+                <div className="cellDetails">{initialRow}</div>
+                {arr.map((value, index) => (
+                    <div className="cellDetails" key={index}>
+                        {value}
+                    </div>
+                ))}
+            </div>
+        )
+    }
     return(
         <section className="App">
             {modal && <Modal savedYears={savedYears} savedMonths={savedMonths} setModal={setModal} savedTotalPaid={savedTotalPaid}/>}
@@ -198,18 +212,10 @@ const DataCalculate = ()=>{
             <button onClick={() => window.location.reload()}>Reset Numbers</button>
 
             <DataAnalysis interestPaidArray={interestPaidArray} mortgage={principal} extraInterestPaidArray={extraInterestPaidArray} extraTotalPaidToBank={extraTotalPaidToBank} totalPaidToBank={totalPaidToBank}/>
-            {/* ****Below is for extra********* */}
+
             { extraNewEndingPrincipalArray.length>1 &&
             <div id="flexTable">
-                <div className="tableCell">
-                    Extra Principal
-                    <div className="cellDetails">{principal}</div>
-                    {extraNewEndingPrincipalArray.map((value, index) => (
-                        <div className="cellDetails" key={index}>
-                            {value}
-                        </div>
-                    ))}
-                </div>
+                {AmortizationColumn( 'Extra Principal', principal, extraNewEndingPrincipalArray)}
                 <div className="tableCell">
                     Monthly Payment
                     {extraNewEndingPrincipalArray.map((value, index) => (
@@ -218,34 +224,9 @@ const DataCalculate = ()=>{
                         </div>
                     ))}
                 </div>
-
-                <div className="tableCell bottomCell">
-                    Interest Paid With Extra Included
-                    <div className="cellDetails">-</div>
-                    {extraInterestPaidArray.map((value, index) => (
-                        <div className="cellDetails" key={index}>
-                            {value}
-                        </div>
-                    ))}
-                </div>
-                <div className="tableCell">
-                    Principal Paid With Extra Included
-                    <div className="cellDetails">-</div>
-                    {extraPrincipalPaidArray.map((value, index) => (
-                        <div className="cellDetails" key={index}>
-                            {value}
-                        </div>
-                    ))}
-                </div>
-
-                <div className="tableCell">
-                    Ending Principal with Extra Included
-                    {extraNewEndingPrincipalArray.map((value, index) => (
-                        <div className="cellDetails" key={index}>
-                            {value}
-                        </div>
-                    ))}
-                </div>
+                {AmortizationColumn( 'Interest Paid With Extra Included', "-", extraInterestPaidArray)}
+                {AmortizationColumn( 'Principal Paid (Extra)', "-", extraPrincipalPaidArray)}
+                {AmortizationColumn( 'Ending Principal (Extra)', "", extraNewEndingPrincipalArray)}
             </div>
             }
 
