@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styling/App1.scss';
 import numberConverter from './numberConverter';
 import RevealData from './DataRevealed';
+import Modal from './Modal';
+
 
 const DataCalculate = ()=>{
     // User Input
@@ -25,7 +27,6 @@ const DataCalculate = ()=>{
 
     // Modal
     const [modal, setModal] = useState(false);
-
 
     //Calculations
     const generateCalculation = () => {
@@ -144,6 +145,7 @@ const DataCalculate = ()=>{
     //Calculate total paid
     let totalPaidToBank;
     let extraTotalPaidToBank;
+
     if (interestPaidArray.length > 0) {
         totalPaidToBank = numberConverter(
             interestPaidArray.reduce((accu, cur) => accu + cur),
@@ -161,27 +163,7 @@ const DataCalculate = ()=>{
 
     return(
         <section className="App">
-            {modal && <div className="modal">
-                <h2 className="modal-header">
-                    <button
-                        className="modal-close"
-                        onClick={()=>setModal(false)}
-                    >
-                        X
-                    </button>
-                    <span className='positiveLarge'>Savings!</span>
-                </h2>
-                <div className="modal-content">
-                    <div className='amounts positive'>
-                        {savedYears} years {savedMonths} months Saved!
-                    </div>
-                    <div className='amounts positive'>
-
-                        ${savedTotalPaid} Saved
-                    </div>
-
-                </div>
-            </div>}
+            {modal && <Modal savedYears={savedYears} savedMonths={savedMonths} setModal={setModal} savedTotalPaid={savedTotalPaid}/>}
             <div id="inputSection">
                 <form className="inputForm">
                     <label className="inputSection">
