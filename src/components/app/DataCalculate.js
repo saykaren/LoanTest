@@ -3,6 +3,10 @@ import '../../styling/App1.scss';
 import numberConverter from './numberConverter';
 import Modal from './Modal';
 import DataAnalysis from './DataAnalysis';
+import GenerateCalculation from './GenerateCalculation';
+import ExtraPaymentCalculation from './ExtraPaymentCalculation';
+import AmortizationColumnSetValue from './AmortizationColumnSetValue';
+import AmortizationColumn from './AmortizationColumn';
 
 const DataCalculate = () => {
   // User Input
@@ -28,109 +32,36 @@ const DataCalculate = () => {
   const [modal, setModal] = useState(false);
 
   //Calculations
-  const generateCalculation = () => {
-    let currentPrincipal;
-    if (newEndingPrincipalArray.length > 0) {
-      currentPrincipal = numberConverter(
-        newEndingPrincipalArray[newEndingPrincipalArray.length - 1],
-      );
-    }
-
-    const processEachPayment = (num) => {
-      let paymentInterestPaid = numberConverter(
-        currentPrincipal * ((interestRate * 0.01) / 12),
-      );
-      let principalPaid;
-      ////0 is last payment
-      if (num === 0) {
-        principalPaid = numberConverter(currentPrincipal);
-      } else {
-        principalPaid = numberConverter(monthlyPayment - paymentInterestPaid);
-      }
-      let balance = numberConverter(currentPrincipal - principalPaid);
-      setPrincipalPaidArray([...principalPaidArray, principalPaid]);
-      setInterestPaidArray([...interestPaidArray, paymentInterestPaid]);
-      setNewEndingPrincipalArray([...newEndingPrincipalArray, balance]);
-    };
-
-    switch (true) {
-      case newEndingPrincipalArray.length < 1:
-        setNewEndingPrincipalArray([principal]);
-        break;
-      case currentPrincipal > monthlyPayment &&
-        newEndingPrincipalArray.length >= 1:
-        processEachPayment(1);
-        break;
-      case currentPrincipal < monthlyPayment:
-        processEachPayment(0);
-        break;
-      case newEndingPrincipalArray[newEndingPrincipalArray.length - 1] <= 0:
-        break;
-      default:
-        break;
-    }
+  const handleGenerateCalculation = () => {
+    GenerateCalculation({
+      newEndingPrincipalArray,
+      interestRate,
+      monthlyPayment,
+      principalPaidArray,
+      setPrincipalPaidArray,
+      interestPaidArray,
+      setInterestPaidArray,
+      setNewEndingPrincipalArray,
+      principal,
+    });
   };
 
-  const extraCalculation = () => {
-    let currentExtraPrincipal;
-    if (extraNewEndingPrincipalArray.length > 0) {
-      currentExtraPrincipal = numberConverter(
-        extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1],
-      );
-    }
-
-    const processEachExtraPayment = (num) => {
-      let paymentExtraInterestPaid = numberConverter(
-        currentExtraPrincipal * ((interestRate * 0.01) / 12),
-      );
-      let principalExtraPaid;
-      ///Last payment 0
-      if (num === 0) {
-        principalExtraPaid = numberConverter(currentExtraPrincipal);
-        setModal(true);
-      } else {
-        principalExtraPaid = numberConverter(
-          extraPayment + monthlyPayment - paymentExtraInterestPaid,
-        );
-      }
-      let extraBalance = numberConverter(
-        currentExtraPrincipal - principalExtraPaid,
-      );
-      setExtraPrincipalPaidArray([
-        ...extraPrincipalPaidArray,
-        principalExtraPaid,
-      ]);
-      setExtraInterestPaidArray([
-        ...extraInterestPaidArray,
-        paymentExtraInterestPaid,
-      ]);
-      setExtraNewEndingPrincipalArray([
-        ...extraNewEndingPrincipalArray,
-        extraBalance,
-      ]);
-    };
-
-    switch (true) {
-      case extraNewEndingPrincipalArray.length < 1:
-        setExtraNewEndingPrincipalArray([principal]);
-        break;
-      case currentExtraPrincipal > monthlyPayment + extraPayment &&
-        extraNewEndingPrincipalArray.length >= 1:
-        processEachExtraPayment(1);
-        break;
-      case currentExtraPrincipal < monthlyPayment + extraPayment &&
-        extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] >
-          0:
-        processEachExtraPayment(0);
-        break;
-      case extraNewEndingPrincipalArray[
-        extraNewEndingPrincipalArray.length - 1
-      ] <= 0:
-        break;
-      default:
-        break;
-    }
+  const handleGenerateExtraCalculation = () => {
+    ExtraPaymentCalculation({
+      extraNewEndingPrincipalArray,
+      interestRate,
+      setModal,
+      extraPayment,
+      monthlyPayment,
+      extraPrincipalPaidArray,
+      setExtraPrincipalPaidArray,
+      extraInterestPaidArray,
+      setExtraInterestPaidArray,
+      setExtraNewEndingPrincipalArray,
+      principal,
+    });
   };
+
   const handleReset = (e, setEvent) => {
     let result = parseFloat(e);
     setEvent(result);
@@ -141,7 +72,7 @@ const DataCalculate = () => {
       newEndingPrincipalArray.length >= 1 &&
       newEndingPrincipalArray[newEndingPrincipalArray.length - 1] > 0
     ) {
-      setTimeout(generateCalculation, 100);
+      setTimeout(handleGenerateCalculation, 100);
     }
   }, [newEndingPrincipalArray]);
 
@@ -150,14 +81,14 @@ const DataCalculate = () => {
       extraNewEndingPrincipalArray.length >= 1 &&
       extraNewEndingPrincipalArray[extraNewEndingPrincipalArray.length - 1] > 0
     ) {
-      setTimeout(extraCalculation, 100);
+      setTimeout(handleGenerateExtraCalculation, 100);
     }
   }, [extraNewEndingPrincipalArray]);
 
   const calculate = () => {
-    generateCalculation();
+    handleGenerateCalculation();
     if (extraPayment > 0) {
-      extraCalculation();
+      handleGenerateExtraCalculation();
     }
   };
 
@@ -205,32 +136,6 @@ const DataCalculate = () => {
     );
   };
 
-  const AmortizationColumn = (title, initialRow, arr) => {
-    return (
-      <div className="tableCell">
-        {title}
-        <div className="cellDetails">{initialRow}</div>
-        {arr.map((value, index) => (
-          <div className="cellDetails" key={index}>
-            {value}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const AmortizationColumnSetValue = (title, copyValue, arr) => {
-    return (
-      <div className="tableCell">
-        {title}
-        {arr.map((value, index) => (
-          <div className="cellDetails" key={index}>
-            {copyValue}
-          </div>
-        ))}
-      </div>
-    );
-  };
   return (
     <section className="App">
       {modal && (
@@ -288,44 +193,20 @@ const DataCalculate = () => {
 
       {extraNewEndingPrincipalArray.length > 1 && (
         <div id="flexTable">
-          {AmortizationColumn(
-            'Extra Principal',
-            principal,
-            extraNewEndingPrincipalArray,
-          )}
-          {AmortizationColumnSetValue(
-            'Monthly Payment',
-            monthlyPayment,
-            extraNewEndingPrincipalArray,
-          )}
-          {AmortizationColumn(
-            'Interest Paid (EXTRA Calculation)',
-            '-',
-            extraInterestPaidArray,
-          )}
-          {AmortizationColumn(
-            'Principal Paid (EXTRA Calculation)',
-            '-',
-            extraPrincipalPaidArray,
-          )}
-          {AmortizationColumn(
-            'Ending Principal (EXTRA Calculation)',
-            '',
-            extraNewEndingPrincipalArray,
-          )}
+          <AmortizationColumn title='Extra Principal' initialRow={principal} arr={extraNewEndingPrincipalArray}/>
+          <AmortizationColumnSetValue title='Monthly Payment' copyValue={monthlyPayment} arr={extraNewEndingPrincipalArray}/>
+          <AmortizationColumn title='Interest Paid (EXTRA Calculation)' initialRow='-' arr={extraInterestPaidArray}/>
+          <AmortizationColumn title='Principal Paid (EXTRA Calculation)' initialRow='-' arr={extraPrincipalPaidArray}/>
+          <AmortizationColumn title='Ending Principal (EXTRA Calculation)' initialRow='' arr={extraNewEndingPrincipalArray}/>
         </div>
       )}
 
       <div id="flexTable">
-        {AmortizationColumn('Principal', principal, newEndingPrincipalArray)}
-        {AmortizationColumnSetValue(
-          'Monthly Payment',
-          monthlyPayment,
-          newEndingPrincipalArray,
-        )}
-        {AmortizationColumn('Interest Paid', '-', interestPaidArray)}
-        {AmortizationColumn('Principal Paid', '-', principalPaidArray)}
-        {AmortizationColumn('Ending Principal', '', newEndingPrincipalArray)}
+        <AmortizationColumn title='Principal' initialRow={principal} arr={newEndingPrincipalArray}/>
+        <AmortizationColumnSetValue title={'Monthly Payment'} copyValue={monthlyPayment} arr={newEndingPrincipalArray}/>
+        <AmortizationColumn title='Interest Paid' initialRow='-' arr={interestPaidArray} />
+        <AmortizationColumn title='Principal Paid' initialRow='-' arr={principalPaidArray} />
+        <AmortizationColumn title='Ending Principal' initialRow='' arr={newEndingPrincipalArray}/>
       </div>
     </section>
   );
