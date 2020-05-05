@@ -9,7 +9,7 @@ const GenerateCalculation = ({
   interestPaidArray,
   setInterestPaidArray,
   setNewEndingPrincipalArray,
-                                 principal,
+  principal,
 }) => {
   let currentPrincipal;
   if (newEndingPrincipalArray.length > 0) {

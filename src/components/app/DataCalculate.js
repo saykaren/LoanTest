@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../../styling/App1.scss';
 import numberConverter from './numberConverter';
 import Modal from './Modal';
 import DataAnalysis from './DataAnalysis';

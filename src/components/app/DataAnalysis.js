@@ -26,20 +26,46 @@ const DataAnalysis = ({
             Amortization with <span className="positive">Extra</span> Payment
           </h2>
           <div className="dataSection">
-              <TimeAnalysis title='Time til loan paid off' arr={extraInterestPaidArray} />
+            <TimeAnalysis
+              title="Time til loan paid off"
+              arr={extraInterestPaidArray}
+            />
           </div>
-            <TotalAmountAnalysis loan={mortgage} principalWidth={extraPrincipalWidth} intTotal={extraTotalPaidToBank} interestWidth={extraInterestWidth} overallTotal={extraTotalPaid} />
-            <GraphAnalysis totalPaidData={extraTotalPaid} graphPWidth={extraPrincipalWidth} graphIWidth={extraInterestWidth}/>
+          <TotalAmountAnalysis
+            loan={mortgage}
+            principalWidth={extraPrincipalWidth}
+            intTotal={extraTotalPaidToBank}
+            interestWidth={extraInterestWidth}
+            overallTotal={extraTotalPaid}
+          />
+          <GraphAnalysis
+            totalPaidData={extraTotalPaid}
+            graphPWidth={extraPrincipalWidth}
+            graphIWidth={extraInterestWidth}
+          />
         </div>
       )}
       {interestPaidArray.length > 0 && (
         <div className="dataForm">
           <h2 className="headerCalc">Amortization Typical Payment</h2>
           <div className="dataSection">
-              <TimeAnalysis title='Time til loan paid off' arr={interestPaidArray}/>
+            <TimeAnalysis
+              title="Time til loan paid off"
+              arr={interestPaidArray}
+            />
           </div>
-            <TotalAmountAnalysis loan={mortgage} principalWidth={principalWidth} intTotal={totalPaidToBank} interestWidth={interestWidth} overallTotal={totalPaid} />
-            <GraphAnalysis totalPaidData={totalPaid} graphPWidth={principalWidth} graphIWidth={interestWidth}/>
+          <TotalAmountAnalysis
+            loan={mortgage}
+            principalWidth={principalWidth}
+            intTotal={totalPaidToBank}
+            interestWidth={interestWidth}
+            overallTotal={totalPaid}
+          />
+          <GraphAnalysis
+            totalPaidData={totalPaid}
+            graphPWidth={principalWidth}
+            graphIWidth={interestWidth}
+          />
         </div>
       )}
     </section>

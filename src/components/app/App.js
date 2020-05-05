@@ -1,15 +1,14 @@
 import React from 'react';
-import '../../styling/App1.scss';
+import '../../styling/App.scss';
 import Footer from './Footer';
 import DataCalculate from './DataCalculate';
 
-
 const App = () => {
   return (
-      <>
-      <DataCalculate/>
-        <Footer/>
-      </>
+    <>
+      <DataCalculate />
+      <Footer />
+    </>
   );
 };
 
