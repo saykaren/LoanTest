@@ -1,13 +1,12 @@
 import React from 'react';
 
 const TotalAmountAnalysis = ({
-                                 loan,
-                                 principalWidth,
-                                 intTotal,
-                                 interestWidth,
-                                 overalTotal,
-                             }
-) => {
+  loan,
+  principalWidth,
+  intTotal,
+  interestWidth,
+  overallTotal,
+}) => {
   return (
     <div className="dataSection">
       <div className="amounts">
@@ -20,7 +19,7 @@ const TotalAmountAnalysis = ({
         </span>
       </div>
       <div className="amounts">
-        Total Paid: <span className="negative"> ${parseInt(overalTotal)}</span>
+        Total Paid: <span className="negative"> ${parseInt(overallTotal)}</span>
       </div>
     </div>
   );

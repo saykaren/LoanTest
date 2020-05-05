@@ -1,0 +1,15 @@
+@import './variables.scss';
+
+#footer{
+  width: 100%;
+  height: auto;
+  word-wrap: break-word;
+  color: $secondary-color;
+  text-align: center;
+  font-size: 1.5rem;
+  bottom: 0;
+}
+
+.footerDetails{
+  height: 3.5rem;
+}

@@ -28,7 +28,7 @@ const DataAnalysis = ({
           <div className="dataSection">
               <TimeAnalysis title='Time til loan paid off' arr={extraInterestPaidArray} />
           </div>
-            <TotalAmountAnalysis loan={mortgage} principalWidth={extraPrincipalWidth} intTotal={extraTotalPaidToBank} interestWidth={extraInterestWidth} overalTotal={extraTotalPaid} />
+            <TotalAmountAnalysis loan={mortgage} principalWidth={extraPrincipalWidth} intTotal={extraTotalPaidToBank} interestWidth={extraInterestWidth} overallTotal={extraTotalPaid} />
             <GraphAnalysis totalPaidData={extraTotalPaid} graphPWidth={extraPrincipalWidth} graphIWidth={extraInterestWidth}/>
         </div>
       )}
@@ -38,7 +38,7 @@ const DataAnalysis = ({
           <div className="dataSection">
               <TimeAnalysis title='Time til loan paid off' arr={interestPaidArray}/>
           </div>
-            <TotalAmountAnalysis loan={mortgage} principalWidth={principalWidth} intTotal={totalPaidToBank} interestWidth={interestWidth} overalTotal={totalPaid} />
+            <TotalAmountAnalysis loan={mortgage} principalWidth={principalWidth} intTotal={totalPaidToBank} interestWidth={interestWidth} overallTotal={totalPaid} />
             <GraphAnalysis totalPaidData={totalPaid} graphPWidth={principalWidth} graphIWidth={interestWidth}/>
         </div>
       )}
